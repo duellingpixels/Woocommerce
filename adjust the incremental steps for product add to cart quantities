@@ -1,14 +1,14 @@
-<?php // do no copy this line
+<?php // Do no copy this line
 
 // Add min value to the quantity field (default = 1)
 add_filter('woocommerce_quantity_input_min', 'min_decimal');
 function min_decimal($val) { 
-    return 0.5;
+    return 0.5;  //Change value to wanted incremental unit step. 
 }
  
 // Add step value to the quantity field (default = 1)
-add_filter('woocommerce_quantity_input_step', 'nsk_allow_decimal');
-function nsk_allow_decimal($val) {
+add_filter('woocommerce_quantity_input_step', 'dp_allow_decimal');
+function dp_allow_decimal($val) {
     return 0.5;
 }
  
@@ -19,8 +19,8 @@ remove_filter('woocommerce_stock_amount', 'intval');
 add_filter('woocommerce_stock_amount', 'floatval');
  
 // Add unit price fix when showing the unit price on processed orders
-add_filter('woocommerce_order_amount_item_total', 'unit_price_fix', 10, 5);
-function unit_price_fix($price, $order, $item, $inc_tax = false, $round = true) {
+add_filter('woocommerce_order_amount_item_total', 'dp_unit_price_fix', 10, 5);
+function dp_unit_price_fix($price, $order, $item, $inc_tax = false, $round = true) {
 	
     $qty = (!empty($item['qty']) && $item['qty'] != 0) ? $item['qty'] : 1;
     if($inc_tax) {
